@@ -15,12 +15,13 @@ double multiply(double a, double b) {
     return a * b;
 }
 
-double divide(double a, double b) {
+bool divide(double a, double b, double &result) {
     if (b == 0) {
         cout << "Ошибка: деление на ноль!" << endl;
-        return 0;
+        return false;
     }
-    return a / b;
+    result = a / b;
+    return true;
 }
 
 double power(double a, double b) {
@@ -36,8 +37,9 @@ int main() {
     cout << "Введите выражение (например: 5 + 3): ";
     
     cin >> num1 >> operation >> num2;
-    
+
     double result;
+    bool success = true;
     
     switch (operation) {
         case '+':
@@ -50,7 +52,7 @@ int main() {
             result = multiply(num1, num2);
             break;
         case '/':
-            result = divide(num1, num2);
+            success = divide(num1, num2, result);
             break;
         case '^':
             result = power(num1, num2);
@@ -60,7 +62,9 @@ int main() {
             return 1;
     }
     
-    cout << "Результат: " << num1 << " " << operation << " " << num2 << " = " << result << endl;
+    if (success) {
+            cout << "Результат: " << num1 << " " << operation << " " << num2 << " = " << result << endl;
+        }
     
     return 0;
 }
